@@ -29,6 +29,9 @@ public class MemberController implements Controller {
             case "login":
                 login(request);
                 break;
+            case "logout":
+                logout(request);
+                break;
             default:
                 System.out.println("올바른 요청을 보내주세요.");
                 break;
@@ -85,6 +88,15 @@ public class MemberController implements Controller {
         request.login(loginId);
 
         System.out.println(loginId + "님 반갑습니다 :) !");
+    }
+
+
+    // 로그아웃 메서드
+    public void logout(Request request){
+        String logonMember = request.getLogonMember();
+        System.out.println(logonMember + "님 로그아웃 되었습니다.");
+
+        request.logout();
     }
 
 }
