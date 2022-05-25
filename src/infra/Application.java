@@ -9,11 +9,22 @@ public class Application {
     private Scanner sc = Container.sc;
     private boolean isActive = true;       //while문을 돌려서 true면 실행, false면 종료;
 
+    // 필드생성
+    private String applicationName;
+
+    public Application(String applicationName){
+        this.applicationName = applicationName;
+    }
+
 
     public void run(){
 
         while (isActive){
-            System.out.println("명령어 : ");
+
+            String domain = "https://" + applicationName;
+
+//            System.out.println("명령어 : ");
+            System.out.print(domain);
             String inputUri = sc.nextLine().trim();
 
             Request request = new Request(inputUri);
@@ -30,12 +41,16 @@ public class Application {
 
     }
 
+    // /members
     // 메서드 생성
     public Controller getController(String code){
 
         switch (code){
             case "system":
                 return Container.systemController;
+            case "member":
+            case "members":
+                return Container.memberController;
             default:
                 return null;
         }
