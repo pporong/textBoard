@@ -27,7 +27,17 @@ public class Application {
             System.out.print(domain);
             String inputUri = sc.nextLine().trim();
 
+            if (inputUri.equals(".exit")){
+                System.out.println("어플리케이션을 종료합니다.");
+                break;
+            }
+
             Request request = new Request(inputUri);
+
+            if (!request.isValidRequest()){
+                System.out.println("존재하지 않는 명령어 입니다.");
+                continue;
+            }
 
             Filter filter = new Filter(request);
 

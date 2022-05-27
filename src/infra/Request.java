@@ -13,12 +13,18 @@ public class Request {
         this.uriParser = new UriParser(uri);
     }
 
+    public boolean hasParam(String key){
+        Map<String, Object> parameter = uriParser.getParameter();
+        return parameter.get(key) != null;
+    }
+
+
     public String getOriginUrl(){
         return uriParser.getURI();
     }
 
     public boolean isValidRequest(){
-        return false;
+        return uriParser.isValid();
     }
 
     public Object getParameterValue(String key, Class cls){
@@ -26,6 +32,16 @@ public class Request {
         Map<String, Object> parameter = uriParser.getParameter();
         return cls.cast(parameter.get(key));
 
+    }
+
+    public String getParameterStrValue(String key){
+        Map<String, Object> parameter = uriParser.getParameter();
+        return parameter.get(key).toString();
+    }
+
+    public int getParameterIntValue(String key){
+        Map<String, Object> parameter = uriParser.getParameter();
+        return Integer.parseInt(parameter.get(key).toString());
     }
 
     public String getControllerCode(){
@@ -67,7 +83,6 @@ public class Request {
     public String getLogonMember(){
         return (String) getSessionAttribute("logonMember");
     }
-
 
 
 }
