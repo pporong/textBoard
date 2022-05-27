@@ -13,6 +13,10 @@ public class Request {
         this.uriParser = new UriParser(uri);
     }
 
+    public String getOriginUrl(){
+        return uriParser.getURI();
+    }
+
     public boolean isValidRequest(){
         return false;
     }

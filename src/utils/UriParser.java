@@ -53,7 +53,7 @@ public class UriParser {
 
     }
 
-    // getter 만들기 a+in
+    // getter 만들기 alt+insert
     public String getControllerCode() {
         return controllerCode;
     }
@@ -64,6 +64,10 @@ public class UriParser {
 
     public Map<String, Object> getParameter() {
         return parameter;
+    }
+
+    public String getURI(){
+        return URI;
     }
 
 }

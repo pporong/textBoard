@@ -29,6 +29,13 @@ public class Application {
 
             Request request = new Request(inputUri);
 
+            Filter filter = new Filter(request);
+
+            if (!filter.isValidRequest()){
+                System.out.println("잘못된 요청입니다. 다시 확인해 주세요.");
+                continue;
+            }
+
             Controller controller = getController(request.getControllerCode());
 
             if(controller != null) {
