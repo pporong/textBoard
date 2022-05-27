@@ -7,6 +7,8 @@ import infra.Request;
 import service.MemberService;
 import utils.Util;
 
+import javax.swing.text.html.HTMLDocument;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class MemberController implements Controller {
@@ -37,6 +39,10 @@ public class MemberController implements Controller {
                 break;
             case "detail" :
                 detail(request);
+                break;
+            case "modify" :
+                modify(request);
+                break;
             default:
                 System.out.println("올바른 요청을 보내주세요.");
                 break;
@@ -126,6 +132,35 @@ public class MemberController implements Controller {
         System.out.println("* ID : " + loginId);
         System.out.println("* NAME : " + findMember.getName());
         System.out.println("* Joined At : " + findMember.getRegDate());
+
+    }
+
+    // modify 메서드
+    public void modify(Request request){
+        String paramkey = "loginId";
+
+        if (!Util.hasParam(request, paramkey)){
+            System.out.println(paramkey + " 파라미터가 필요합니다.");
+            return;
+        }
+
+        String logonMember = request.getLogonMember();
+        String parameterValue = request.getParameterStrValue(paramkey);
+
+        if (!logonMember.equals(parameterValue)){
+            System.out.println("본인 정보만 수정할 수 있습니다.");
+            return;
+        }
+
+        Member findMember = memberService.getMemberByLoginId(parameterValue);
+
+        System.out.print("변경하고자 하는 비밀번호를 입력해 주세요. \r\n : ");
+        String newPassword = sc.nextLine().trim();
+
+        findMember.setPassword(newPassword);
+        findMember.setUpdateDate(LocalDateTime.now());
+
+        System.out.println("비밀번호가 변경되었습니다. \r\n 다음 로그인부터 반영됩니다.");
 
     }
 
