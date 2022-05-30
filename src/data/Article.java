@@ -21,8 +21,9 @@ public class Article {
 
 
     // 생성자 생성
-    public Article(String title, String body, String author){
+    public Article(int id, String title, String body, String author){
 
+        this.id = id;
         this.title = title;
         this.body = body;
         this.author = author;

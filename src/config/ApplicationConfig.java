@@ -14,7 +14,8 @@ public class ApplicationConfig {
     public static String[] hasAuthUrlList = {
         "/members/logout", "/member/logout",
         "/members/detail", "/member/detail",
-        "/members/modify", "/member/modify"
+        "/members/modify", "/member/modify",
+        "/article/write", "/articles/write"
     };
 
 }

@@ -95,7 +95,7 @@ public class MemberController implements Controller {
 
         int memberId = memberService.saveMember(loginId, password, name);
 
-        System.out.println("환영합니다, " + memberId + "번 째" + name +"회원님 !");
+        System.out.println(loginId + "님은, " + memberId + "번 째로 가입한 회원입니다! 환영해요~ " + "'"+ name + "'" +" 회원님!");
     }
 
 

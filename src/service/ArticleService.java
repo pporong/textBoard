@@ -13,5 +13,9 @@ public class ArticleService {
         articleRepository = Container.articleRepository;
     }
 
+    public int write(String title, String body, String author){
+        return articleRepository.saveArticle(title, body, author);
+    }
+
 
 }
