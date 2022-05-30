@@ -68,6 +68,9 @@ public class Application {
             case "member":
             case "members":
                 return Container.memberController;
+            case "articles":
+            case "article":
+                return Container.articleController;
             default:
                 return null;
         }
