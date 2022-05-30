@@ -9,6 +9,7 @@ import utils.Util;
 
 import javax.swing.text.html.HTMLDocument;
 import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class MemberController implements Controller {
@@ -42,6 +43,9 @@ public class MemberController implements Controller {
                 break;
             case "modify" :
                 modify(request);
+                break;
+            case "delete" :
+                delete(request);
                 break;
             default:
                 System.out.println("올바른 요청을 보내주세요.");
@@ -163,5 +167,35 @@ public class MemberController implements Controller {
         System.out.println("비밀번호가 변경되었습니다. \r\n 다음 로그인부터 반영됩니다.");
 
     }
+
+    // delete 메서드
+    public void delete(Request request){
+        String paramKey = "loginId";
+        if (!Util.hasParam(request, paramKey)){
+            System.out.println(paramKey + "파라미터가 필요합니다.");
+            return;
+        }
+        String logonMember = request.getLogonMember();
+        String parameterValue = request.getParameterStrValue(paramKey);
+
+        if (!logonMember.equals(parameterValue)){
+            System.out.println("본인 계정만 탈퇴가 가능합니다.");
+            return;
+        }
+        System.out.println("정말 탈퇴하시겠습니까? (Y / N)");
+        String answer = sc.nextLine().trim().toLowerCase(Locale.ROOT);
+
+        if (answer.equals("n")){
+            System.out.println("탈퇴 절차를 취소합니다.");
+        } else if (answer.equals("y")){
+            memberService.delete(logonMember);
+            request.logout();
+            System.out.println(logonMember + "님, 그동안 감사했습니다. 탈퇴가 완료되었습니다.");
+        } else {
+            System.out.println("!! Y 혹은 N 을 정확하게 입력하여 주시기 바랍니다. !!");
+        }
+    }
+
+
 
 }

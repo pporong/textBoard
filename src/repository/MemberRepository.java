@@ -54,4 +54,16 @@ public class MemberRepository {
         }
         return null;
     }
+
+    // 회원정보 삭제 메서드
+    public void delete(Member member){
+        store.remove(member);
+    }
+
+
+
+
+
+
+
 }
