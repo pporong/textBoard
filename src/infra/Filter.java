@@ -23,12 +23,11 @@ public class Filter {
         if (sortCode.equals("ANONYMOUS")){ // 권한 없는 url
             if (isLogon) { // 로그인 O
                 return false;
-            } else if (sortCode.equals("HAS AUTH")) { // 권한 있는 url
-                if (!isLogon) { // 로그인 X
-                    return false;
-                }
             }
-
+        } else if (sortCode.equals("HAS AUTH")) { // 권한 있는 url
+            if (!isLogon) { // 로그인 X
+                return false;
+            }
         }
 
         return true;

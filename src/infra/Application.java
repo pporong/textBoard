@@ -35,14 +35,14 @@ public class Application {
             Request request = new Request(inputUri);
 
             if (!request.isValidRequest()){
-                System.out.println("존재하지 않는 명령어 입니다.");
+                System.out.println("!! 잘못된 요청입니다. !!");
                 continue;
             }
 
             Filter filter = new Filter(request);
 
             if (!filter.isValidRequest()){
-                System.out.println("잘못된 요청입니다. 다시 확인해 주세요.");
+                System.out.println("권한이 없습니다. 다시 확인해 주세요.");
                 continue;
             }
 
@@ -51,7 +51,7 @@ public class Application {
             if(controller != null) {
                 controller.execute(request);
             } else {
-                System.out.println("올바른 URI를 입력하여 주세요.");
+                System.out.println("!! 잘못된 요청입니다. !!");
             }
 
         }

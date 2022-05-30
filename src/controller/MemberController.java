@@ -51,8 +51,9 @@ public class MemberController implements Controller {
             case "list" :
                 getList();
                 break;
+
             default:
-                System.out.println("올바른 요청을 보내주세요.");
+                System.out.println("올바른 요청을 보내주세요. (존재하지 않는 페이지 입니다.)");
                 break;
         }
     }
@@ -65,6 +66,11 @@ public class MemberController implements Controller {
 
         System.out.println(" == 아이디를 입력해 주세요. == ");
         String loginId = sc.nextLine().trim();
+        // 아이디 조건
+        if (loginId.length() < 4){
+            System.out.println("!! 아이디는 4글자 이상 입력해야 합니다. !!");
+            return;
+        }
 
         if (memberService.isExistsByLoginId(loginId)){
             System.out.println("이미 존재하는 아이디 입니다 !");
@@ -73,13 +79,23 @@ public class MemberController implements Controller {
 
         System.out.println(" == 비밀번호를 입력해 주세요. == ");
         String password = sc.nextLine().trim();
+        // 비밀번호 조건
+        if (password.length() < 4){
+            System.out.println("!! 비밀번호는 4글자 이상 입력해야 합니다. !!");
+            return;
+        }
 
         System.out.println(" == 이름 == ");
         String name = sc.nextLine().trim();
+        // 이름 조건
+        if (name.length() <= 2){
+            System.out.println("!! 이름은 2글자 미만일 수 없습니다. !!");
+            return;
+        }
 
         int memberId = memberService.saveMember(loginId, password, name);
 
-        System.out.println("환영합니다, " + memberId + "번 째 회원님 !");
+        System.out.println("환영합니다, " + memberId + "번 째" + name +"회원님 !");
     }
 
 
