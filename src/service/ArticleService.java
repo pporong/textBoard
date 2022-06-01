@@ -22,5 +22,11 @@ public class ArticleService {
         return articleRepository.findById(id);
     }
 
+    public void delete(Article article){
+        articleRepository.delete(article);
+    }
+
+
+
 
 }

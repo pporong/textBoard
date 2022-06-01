@@ -136,14 +136,14 @@ public class MemberController implements Controller {
 
     // detail 메서드
     public void detail(Request request){
-        String paramkey = "loginId";
+        String paramKey = "loginId";
 
-        if (!Util.hasParam(request, paramkey)){
-            System.out.println(paramkey + "파라미터가 필요합니다.");
+        if (!Util.hasParam(request, paramKey)){
+            System.out.println(paramKey + "파라미터가 필요합니다.");
             return;
         }
 
-        String loginId = request.getParameterStrValue(paramkey);
+        String loginId = request.getParameterStrValue(paramKey);
 
         Member findMember = memberService.getMemberByLoginId(loginId);
 
@@ -161,15 +161,15 @@ public class MemberController implements Controller {
 
     // modify 메서드
     public void modify(Request request){
-        String paramkey = "loginId";
+        String paramKey = "loginId";
 
-        if (!Util.hasParam(request, paramkey)){
-            System.out.println(paramkey + " 파라미터가 필요합니다.");
+        if (!Util.hasParam(request, paramKey)){
+            System.out.println(paramKey + " 파라미터가 필요합니다.");
             return;
         }
 
         String logonMember = request.getLogonMember();
-        String parameterValue = request.getParameterStrValue(paramkey);
+        String parameterValue = request.getParameterStrValue(paramKey);
 
         if (!logonMember.equals(parameterValue)){
             System.out.println("본인 정보만 수정할 수 있습니다.");
