@@ -1,11 +1,13 @@
 package controller;
 
 import data.Article;
+import data.Member;
 import infra.Container;
 import infra.Request;
 import service.ArticleService;
 import utils.Util;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class ArticleController implements Controller {
@@ -35,6 +37,9 @@ public class ArticleController implements Controller {
                 break;
             case "delete":
                 delete(request);
+                break;
+            case "modify":
+                modify(request);
                 break;
             default :
                 System.out.println("존재하지 않는 페이지 입니다.");
@@ -76,7 +81,7 @@ public class ArticleController implements Controller {
         String paramKey = "id";
 
         if (!Util.hasParam(request, paramKey)){
-            System.out.println(paramKey + " !! 파라미터가 필요합니다. !!");
+            System.out.println("!! " + paramKey + " 파라미터가 필요합니다. !!");
             return;
         }
 
@@ -102,7 +107,7 @@ public class ArticleController implements Controller {
         String paramKey = "id";
 
         if (!Util.hasParam(request, paramKey)){
-            System.out.println(paramKey + " !! 파라미터가 필요합니다. !!");
+            System.out.println("!! " + paramKey + " 파라미터가 필요합니다. !!");
             return;
         }
 
@@ -124,11 +129,46 @@ public class ArticleController implements Controller {
 
         System.out.println("삭제요청이 정상적으로 처리되었습니다.");
 
+    }
 
+    // 게시글 수정 메서드
+    public void modify(Request request){
+        String paramKey = "id";
+
+        if (!Util.hasParam(request, paramKey)){
+            System.out.println("!! " + paramKey + " 파라미터가 필요합니다. !!");
+            return;
+        }
+
+        int articleId = request.getParameterIntValue(paramKey);
+        Article findArticle = articleService.findById(articleId);
+
+        if (findArticle == null){
+            System.out.println("!! 해당 게시물은 존재하지 않습니다. !!");
+        }
+
+        if (!request.getLogonMember().equals(findArticle.getAuthor())){
+            System.out.println("!! 본인 게시글만 수정 할 수 있습니다. !!");
+            return;
+        }
+
+        System.out.println("== " + articleId + " 번 게시물 수정 ==");
+        System.out.print("변경하고자 하는 제목을 입력해 주세요. \r\n : ");
+        String newTitle = sc.nextLine().trim();
+        System.out.print("변경하고자 하는 내용을 입력해 주세요.\r\n : ");
+        String newBody = sc.nextLine().trim();
+
+        findArticle.setTitle(newTitle);
+        findArticle.setBody(newBody);
+
+        findArticle.setUpdateDate(LocalDateTime.now());
+
+        System.out.println("게시물이 성공적으로 수정되었습니다. :)");
 
 
 
     }
+
 
 
 
