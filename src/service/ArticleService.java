@@ -1,5 +1,6 @@
 package service;
 
+import data.Article;
 import infra.Container;
 import repository.ArticleRepository;
 
@@ -15,6 +16,10 @@ public class ArticleService {
 
     public int write(String title, String body, String author){
         return articleRepository.saveArticle(title, body, author);
+    }
+
+    public Article findById(int id){
+        return articleRepository.findById(id);
     }
 
 

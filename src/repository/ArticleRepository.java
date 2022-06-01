@@ -12,6 +12,7 @@ public class ArticleRepository {
 
     private List<Article> store = new ArrayList<>();
 
+
     public int saveArticle(String title, String body, String author){
 
         articleId += 1;
@@ -21,6 +22,17 @@ public class ArticleRepository {
 
         return articleId;
     }
+
+    public Article findById(int id) {
+        for (Article article : store){
+            if (article.getId() == id){
+                return article;
+            }
+        }
+        return null;
+    }
+
+
 
 
 
