@@ -4,6 +4,9 @@ import data.Article;
 import infra.Container;
 import repository.ArticleRepository;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class ArticleService {
@@ -29,10 +32,19 @@ public class ArticleService {
     }
 
     public List<Article> getArticles(){
-        return articleRepository.getArticles();
+
+        List<Article> articles = articleRepository.getArticles();
+
+        List<Article> reversedArticle = new ArrayList<>();
+
+        for (Article article : articles){
+            reversedArticle.add(article);
+        }
+
+        Collections.reverse(reversedArticle);
+
+        return reversedArticle;
     }
-
-
 
 
 }

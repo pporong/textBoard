@@ -13,6 +13,13 @@ public class ArticleRepository {
     private List<Article> store = new ArrayList<>();
 
 
+    public ArticleRepository(){
+        for (int i = 1; i < 54; i++){
+            Article article = new Article(i, "젬옥" + i, "내용내용" + i, "admin");
+            this.store.add(article);
+        }
+    }
+
     // 게시물 불러오는 메서드
     public List<Article> getArticles() {
         return store;

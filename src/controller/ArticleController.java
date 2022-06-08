@@ -171,23 +171,70 @@ public class ArticleController implements Controller {
 
     }
 
+    // 게시물 불러오기 메서드 (list)
     public void getList(Request request){
-        System.out.println("*~*~*~ 게시글 목록 ~*~*~*");
-        System.out.println();
-
-        List<Article> articles = articleService.getArticles();
-        System.out.println("번호 | 제목 | 작성자 | 작성일");
-        for (Article article : articles){
-            System.out.println(article.getId()
-                    + "  |  " + article.getTitle()
-                    + "  |  " + article.getAuthor()
-                    + "  |  " + article.getReDate());
+        String paramKey = "page";
+        if (!Util.hasParam(request, paramKey)){
+            System.out.println("!! " + paramKey + " 파라미터가 필요합니다. !!");
+            return;
         }
 
+        List<Article> articles = articleService.getArticles();
+
+        // 게시물이 없을 경우
+        if (articles.size() == 0){
+            System.out.println("*~*~*~ 게시물 목록 ~*~*~*");
+            System.out.println("작성된 게시물이 없습니다.");
+            return;
+        }
+
+        // 게시물이 5미만일 경우
+        if (articles.size() < 5){
+            System.out.println("*~*~*~ 게시물 목록 ~*~*~*");
+            System.out.println();
+            System.out.println("번호 | 제목 | 작성자 | 작성일");
+            for (Article article : articles){
+                System.out.println(article.getId()
+                        + "  |  " + article.getTitle()
+                        + "  |  " + article.getAuthor()
+                        + "  |  " + article.getReDate());
+            }
+
+            System.out.println("(1/1)");
+
+        }
+
+        // 한 페이지당 게시물 5개씩 ㄴㅏ타내기(최신글 순으로)
+        int size = 5;
+        int currentPage = request.getParameterIntValue(paramKey);
+
+        int startIndex = (currentPage - 1) * size;
+        int lastIndex = ((currentPage - 1) * size) + size;
+
+        int lastPage = (int) Math.ceil(articles.size() / size);
+
+        if (currentPage == lastPage){
+            lastIndex = articles.size();
+        } else if (currentPage > lastPage){
+            System.out.println("!! 잘못된 요청입니다. !!");
+            return;
+        }
+
+        List<Article> pagedArticles =  articles.subList(startIndex, lastIndex);
+
+        System.out.println("*~*~*~ 게시물 목록 ~*~*~*");
+        System.out.println();
+        System.out.println("번호 | 제목 | 작성자 | 작성일");
+
+        for (Article pagedArticle : pagedArticles){
+            System.out.println(pagedArticle.getId()
+                    + "  |  " + pagedArticle.getTitle()
+                    + "  |  " + pagedArticle.getAuthor()
+                    + "  |  " + pagedArticle.getReDate());
+        }
+        System.out.println("(" + currentPage + "/" + lastPage + ")");
+
     }
-
-
-
 
 
 
