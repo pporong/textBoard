@@ -8,6 +8,7 @@ import service.ArticleService;
 import utils.Util;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Scanner;
 
 public class ArticleController implements Controller {
@@ -41,6 +42,9 @@ public class ArticleController implements Controller {
             case "modify":
                 modify(request);
                 break;
+            case "list":
+                getList(request);
+                break;
             default :
                 System.out.println("존재하지 않는 페이지 입니다.");
                 break;
@@ -65,14 +69,14 @@ public class ArticleController implements Controller {
         String body = sc.nextLine().trim();
         // 내용 조건
         if (body.length() < 5){
-            System.out.println("!! 5글자 이상 작성해야 합니다. !!");
+            System.out.println("!! 게시글은 5글자 이상 작성해야 합니다. !!");
             return;
         }
 
         String author = request.getLogonMember();
         int articleId = articleService.write(title, body, author);
 
-        System.out.println("'" + author+"' 님의 " + articleId + " 번째 글이 작성되었습니다. :) ");
+        System.out.println("'" + author + "' 님의 " + articleId + " 번째 글이 작성되었습니다. :) ");
     }
 
 
@@ -165,7 +169,20 @@ public class ArticleController implements Controller {
 
         System.out.println("게시물이 성공적으로 수정되었습니다. :)");
 
+    }
 
+    public void getList(Request request){
+        System.out.println("*~*~*~ 게시글 목록 ~*~*~*");
+        System.out.println();
+
+        List<Article> articles = articleService.getArticles();
+        System.out.println("번호 | 제목 | 작성자 | 작성일");
+        for (Article article : articles){
+            System.out.println(article.getId()
+                    + "  |  " + article.getTitle()
+                    + "  |  " + article.getAuthor()
+                    + "  |  " + article.getReDate());
+        }
 
     }
 

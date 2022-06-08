@@ -4,6 +4,8 @@ import data.Article;
 import infra.Container;
 import repository.ArticleRepository;
 
+import java.util.List;
+
 public class ArticleService {
 
     // 필드 생성
@@ -24,6 +26,10 @@ public class ArticleService {
 
     public void delete(Article article){
         articleRepository.delete(article);
+    }
+
+    public List<Article> getArticles(){
+        return articleRepository.getArticles();
     }
 
 

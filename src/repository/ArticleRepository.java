@@ -13,6 +13,11 @@ public class ArticleRepository {
     private List<Article> store = new ArrayList<>();
 
 
+    // 게시물 불러오는 메서드
+    public List<Article> getArticles() {
+        return store;
+    }
+
     public int saveArticle(String title, String body, String author){
 
         articleId += 1;
